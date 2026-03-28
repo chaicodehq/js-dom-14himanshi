@@ -62,12 +62,80 @@
  */
 export function createSweetItem(name, price, category) {
   // Your code here
+   // Validation
+  if (
+    typeof name !== "string" ||
+    typeof price !== "number" ||
+    typeof category !== "string"
+  ) {
+    return null;
+  }
+
+  // Create main div
+  const div = document.createElement("div");
+  div.classList.add("sweet-item");
+
+  // Create name
+  const h3 = document.createElement("h3");
+  h3.textContent = name;
+
+  // Create price
+  const priceEl = document.createElement("p");
+  priceEl.classList.add("price");
+  priceEl.textContent = `₹${price}`;
+
+  // Create category
+  const categoryEl = document.createElement("span");
+  categoryEl.classList.add("category");
+  categoryEl.textContent = category;
+
+  // Append all
+  div.appendChild(h3);
+  div.appendChild(priceEl);
+  div.appendChild(categoryEl);
+
+  return div;
 }
 
 export function buildMenuBoard(sweets) {
   // Your code here
+  if (!Array.isArray(sweets)) {
+    return null;
+  }
+
+  const board = document.createElement("div");
+  board.id = "menu-board";
+
+  sweets.forEach((sweet) => {
+    const item = createSweetItem(
+      sweet.name,
+      sweet.price,
+      sweet.category
+    );
+
+    if (item) {
+      board.appendChild(item);
+    }
+  });
+
+  return board;
 }
 
 export function addSpecialBadge(sweetElement, badgeText) {
   // Your code here
+  if (
+    !sweetElement ||
+    typeof badgeText !== "string" ||
+    badgeText.trim() === ""
+  ) {
+    return null;
+  }
+
+  const badge = document.createElement("span");
+  badge.classList.add("special-badge");
+  badge.textContent = badgeText;
+
+  sweetElement.appendChild(badge);
+
+  return sweetElement;
 }
